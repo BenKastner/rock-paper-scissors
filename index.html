@@ -7,7 +7,19 @@
 </head>
 <body>
     <script>
-        
+        function computerPlay() {
+            let integer = Math.floor(Math.random() * 3);
+
+            if (integer === 0) {
+                return "Rock";
+            } else if (integer === 1) {
+                return "Paper";
+            } else if (integer === 2) {
+                return "Scissors";
+            }
+        }
+
+        console.log(computerPlay());
     </script>
 </body>
 </html>
