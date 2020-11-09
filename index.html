@@ -38,15 +38,27 @@
                 let playerSelection = prompt("Player choice:");
                 let computerSelection = computerPlay();
             
+                
+                console.log(`Round ${round}! Player throws ${playerSelection}! Computer throws ${computerSelection}!`);
                 console.log(playRound(playerSelection, computerSelection));
-                console.log(`Round: ${round} Player: ${playerSelection} Computer: ${computerSelection}`);
-                console.log(`Score: Player: ${playerScore} Computer: ${compScore}`);
+                console.log(`Player: ${playerScore} Computer: ${compScore}`);
 
                 if (playRound(playerSelection, computerSelection) === "You win!") {
                     playerScore++;
                 } else if (playRound(playerSelection, computerSelection) === "You lose!") {
                     compScore++;
                 }
+            }
+            console.log(winner(playerScore, compScore));
+        }
+
+        function winner(playerScore, compScore) {
+            if (playerScore > compScore) {
+                return "Player wins!"
+            } else if (playerScore < compScore) {
+                return "Computer wins!"
+            } else if (playerScore === compScore) {
+                return "Game tied!"
             }
         }
     
