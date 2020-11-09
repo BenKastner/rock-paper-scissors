@@ -37,16 +37,16 @@
             for (let round = 1; round < 6; round++) {
                 let playerSelection = prompt("Player choice:");
                 let computerSelection = computerPlay();
-                
-                console.log(`Round ${round}! Player throws ${playerSelection}! Computer throws ${computerSelection}!`);
-                console.log(playRound(playerSelection, computerSelection));
-                console.log(`Player: ${playerScore} Computer: ${compScore}`);
 
                 if (playRound(playerSelection, computerSelection) === "You win!") {
                     playerScore++;
                 } else if (playRound(playerSelection, computerSelection) === "You lose!") {
                     compScore++;
                 }
+
+                console.log(`Round ${round}! Player throws ${playerSelection}! Computer throws ${computerSelection}!`);
+                console.log(playRound(playerSelection, computerSelection));
+                console.log(`Player: ${playerScore} Computer: ${compScore}`);
             }
             console.log(winner(playerScore, compScore));
         }
