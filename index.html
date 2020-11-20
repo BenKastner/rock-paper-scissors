@@ -6,14 +6,32 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
+    <div class = "outer">
+        <h3>Click any button to play a round against the computer. First to score 5 points wins!</h3>
+        <div class = "buttons">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+        <div class="results">
+            <h3>Results:</h3>
+            <div class = "throws"></div>
+            <div class = "whoWins"></div>
+            <div class = "score"></div>
+            <div class = "gameOver"></div>
+        </div>
+    </div>
 
     <script>
+        let playerSelection;
+        let round = 0;
+
         const rock = document.querySelector('#rock');
         const paper = document.querySelector('#paper');
         const scissors = document.querySelector('#scissors');
+
+        const outerDiv = document.querySelector('.outer');
+        const buttons = document.querySelector('.buttons');
         
         rock.addEventListener('click', () => {
             playerSelection = "Rock"
@@ -27,6 +45,8 @@
             playerSelection = "Scissors";
             game();
         });
+
+        const results = document.querySelector('.results');
 
         function computerPlay() {
             let integer = Math.floor(Math.random() * 3);
@@ -42,8 +62,6 @@
 
         function playRound(playerSelection, computerSelection) {
 
-            playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
-
             if ((playerSelection === "Rock" && computerSelection === "Scissors") || (playerSelection === "Paper" && computerSelection === "Rock") ||  (playerSelection === "Scissors" && computerSelection === "Paper")) {
             return "You win!";
             } else if (playerSelection === computerSelection) {
@@ -55,37 +73,43 @@
 
         function game() {
             
-        //    for (let round = 1; round < 6; round++) {
-                round++;
-        //    let playerSelection = prompt("Player choice:");
-                let computerSelection = computerPlay();
+            round++;
+            let computerSelection = computerPlay();
 
-                if (playRound(playerSelection, computerSelection) === "You win!") {
-                    playerScore++;
-                } else if (playRound(playerSelection, computerSelection) === "You lose!") {
-                    compScore++;
-                }
-
-                console.log(`Round ${round}! Player throws ${playerSelection}! Computer throws ${computerSelection}!`);
-                console.log(playRound(playerSelection, computerSelection));
-                console.log(`Player: ${playerScore} Computer: ${compScore}`);
+            if (playRound(playerSelection, computerSelection) === "You win!") {
+                playerScore++;
+            } else if (playRound(playerSelection, computerSelection) === "You lose!") {
+                compScore++;
             }
-        //    console.log(winner(playerScore, compScore));
-      //  }
+
+            const throws = document.querySelector(".throws")
+            throws.textContent = `Round ${round}! Player throws ${playerSelection}!
+            Computer throws ${computerSelection}!`
+
+            const whoWins = document.querySelector(".whoWins");
+            whoWins.textContent = `${playRound(playerSelection, computerSelection)}`;
+
+            const score = document.querySelector(".score");
+            score.textContent = `Player: ${playerScore} Computer: ${compScore}`;
+
+            const gameOver = document.querySelector(".gameOver");
+            gameOver.textContent = `${winner(playerScore, compScore)}`;
+        }
 
         function winner(playerScore, compScore) {
-            if (playerScore > compScore) {
+            if (playerScore === 5) {
+                outerDiv.removeChild(buttons);
                 return "Player wins!"
-            } else if (playerScore < compScore) {
+            } else if (compScore === 5) {
+                outerDiv.removeChild(buttons);
                 return "Computer wins!"
-            } else if (playerScore === compScore) {
-                return "Game tied!"
+            } else {
+                return "Next round!"
             }
         }
-        let round = 0;
+
         let playerScore = 0;
         let compScore = 0;
-    //    game();
     </script>
 </body>
 </html>
